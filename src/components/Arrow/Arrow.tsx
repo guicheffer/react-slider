@@ -10,6 +10,7 @@ interface ArrowProps {
 
 const Arrow = ({ direction, handleClick }: ArrowProps) => (
   <div
+    id={`${direction}-navigation`}
     onClick={handleClick}
     css={css`
       ${direction === 'right' ? `right: 2vw` : `left: 2vw`};

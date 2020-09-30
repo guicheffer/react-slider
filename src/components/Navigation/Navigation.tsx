@@ -18,31 +18,40 @@ const NavigationDot = ({ active, activeSlide, handleSelect }: {
     data-active-slide={activeSlide}
     onClick={!active ? handleSelect : () => {}}
     css={css`
-      padding: 10px;
-      margin-right: 5px;
-      cursor: pointer;
-      border-radius: 50%;
-      outline: none;
       background: ${active ? 'black' : 'white'};
+      border-radius: 50%;
+      border: 0;
+      border: 1px solid #748da8;
+      cursor: pointer;
+      margin-right: 5px;
+      outline: none;
+      padding: 10px;
+
+      &:hover {
+        ${!active ? 'border-color: white; background: gray' : ''};
+      }
     `}
   />
 )
 
+// TODO: Reuse css
+// (currently not implemented due agility)
 const Navigation = ({ activeSlide, handleSelect, slides }: NavigationProps) => (
-  <div
+  <nav
+    id='bottom-navigation'
     css={css`
-      position: absolute;
-      bottom: 25px;
-      width: 100%;
-      display: flex;
       align-items: center;
+      bottom: 25px;
+      display: flex;
       justify-content: center;
+      position: absolute;
+      width: 100%;
     `}
   >
     {slides.map((slide, i) => (
       <NavigationDot key={slide.hash} active={activeSlide === i} activeSlide={i} handleSelect={handleSelect} />
     ))}
-  </div>
+  </nav>
 )
 
 export default Navigation

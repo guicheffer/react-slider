@@ -4,6 +4,7 @@ import { css } from '@emotion/core';
 import { SlideState } from '../SliderContainer/SliderContainer';
 
 interface SliderContentProps {
+  id: string;
   translate: SlideState["translate"];
   transition: SlideState["transition"];
   isTransition: SlideState["inTransition"];
@@ -16,7 +17,8 @@ const SliderContent = (props: SliderContentProps) => (
   //  I swear I started doing it by translating
   // it instead of fading it but then I read it wrongly and I decided to keep it like that
 
-  <div
+  <section
+    id={props.id}
     css={css`
       transform: translateX(-${props.translate}px);
       transition: transform linear ${props.transition}s, opacity linear ${props.transition}s;
@@ -26,7 +28,7 @@ const SliderContent = (props: SliderContentProps) => (
     `}
   >
     {props.children}
-  </div>
+  </section>
 )
 
 export default SliderContent;

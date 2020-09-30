@@ -50,12 +50,15 @@ const slides = [
       position: absolute;
       top: 50%;
       transform: translateX(-50%);
-    `}> hello world, i am a react component! and the next slide is your website ❤️ </span></section>),
+    `}> Hello World! i am a react component and the next slide is the website of yours =) </span></section>),
   },
   {
     hash: 'd8e3aw234454wa59b',
     content: 'html',
-    html: (<iframe src="https://livingpackets.com/" css={css`height: 100%; width: 100%; `}/>),
+
+    //  This was added on purpose to later on fix/refactor the
+    // actual sliders in order not to load contents once again (on cache disabled)
+    html: (<iframe title="the-box-website" src="https://livingpackets.com/" css={css`height: 100%; width: 100%; `}/>),
   },
   {
     hash: 'd8e3sdgh5e6fc17c9b',
@@ -65,7 +68,7 @@ const slides = [
   {
     hash: 'd8e3044rs6dudfyh7c9b',
     content: 'image',
-    source: 'https://loremflickr.com/900/603',
+    source: '/cover.jpg',
   },
   {
     hash: 'd8e3awa35a45454wa59b',
@@ -75,7 +78,7 @@ const slides = [
       font-weight: 700;
       margin-top: 100px;
       text-align: center;
-    `}>hey, i am another weird and ugly component up here!</section>),
+    `}>hey, i am a super weird and ugly component up here! :eyes:</section>),
   },
 ] as Slides;
 

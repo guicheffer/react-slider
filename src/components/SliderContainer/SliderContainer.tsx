@@ -148,6 +148,7 @@ const SliderContainer: FunctionComponent<{ slides: Slides }> = props => {
     <div className="slider-container">
       {/* Our Slider Content */}
       <SliderContent
+        id="slider-content"
         translate={translate}
         transition={transition}
         isTransition={inTransition}
