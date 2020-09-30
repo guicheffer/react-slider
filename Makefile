@@ -14,19 +14,19 @@ help:
 install: ## install stuff
 	$(PKG) install
 
-i: install
-
 start: ## start development
 	make install
 	$(PKG) start
 
-dev: start
-
-build: ## build development
+deploy: ## build development
 	$(PKG) build
 
 eject: ## eject development in one file
 	$(PKG) eject
+
+i: install
+dev: start
+build: deploy
 
 test: test-stuff
 test-stuff: ## test stuff
