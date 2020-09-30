@@ -3,17 +3,13 @@ import { css } from '@emotion/core';
 
 import { Slides } from '../../_slides';
 
-interface NavigationProps {
-  handleSelect: any;
-  slides: Slides;
-  activeSlide: number;
-}
-
-const NavigationDot = ({ active, activeSlide, handleSelect }: {
+interface NavigationDotProps {
   active: Boolean,
   activeSlide: NavigationProps["activeSlide"],
   handleSelect: NavigationProps["handleSelect"],
-}) => (
+}
+
+const NavigationDot = ({ active, activeSlide, handleSelect }: NavigationDotProps) => (
   <button
     data-active-slide={activeSlide}
     onClick={!active ? handleSelect : () => {}}
@@ -33,6 +29,12 @@ const NavigationDot = ({ active, activeSlide, handleSelect }: {
     `}
   />
 )
+
+interface NavigationProps {
+  handleSelect: any;
+  slides: Slides;
+  activeSlide: number;
+}
 
 // TODO: Reuse css
 // (currently not implemented due agility)
