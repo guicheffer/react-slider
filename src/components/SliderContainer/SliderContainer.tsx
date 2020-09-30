@@ -10,13 +10,12 @@ import SliderContent from '../SliderContent/SliderContent';
 import "./SliderContainer.scss";
 
 enum DEFAULTS {
-  TRANSITION_TIME = 0.2,
+  TRANSITION_TIME = 0.5,
 };
 
 export interface SlideState {
   activeSlide: number;
   translate: number;
-  inTransition: Boolean;
   transition: typeof DEFAULTS.TRANSITION_TIME;
   _slides: SlideConfig[];
 }
@@ -42,14 +41,12 @@ const SliderContainer: FunctionComponent<{ slides: Slides }> = props => {
     activeSlide: 0,
     translate: getWindowWidth(),
     transition: DEFAULTS.TRANSITION_TIME,
-    inTransition: false,
     _slides: [lastSlide, firstSlide, secondSlide]
   } as SlideState);
 
   const {
     _slides,
     activeSlide,
-    inTransition,
     transition,
     translate,
   } = state;
@@ -106,7 +103,6 @@ const SliderContainer: FunctionComponent<{ slides: Slides }> = props => {
       ...state,
       _slides,
       transition: 0,
-      inTransition: false,
       translate: getWindowWidth()
     });
   }
@@ -114,7 +110,6 @@ const SliderContainer: FunctionComponent<{ slides: Slides }> = props => {
   const nextSlide = () =>
     setState({
       ...state,
-      inTransition: true,
       translate: translate + getWindowWidth(),
       activeSlide: activeSlide === slides.length - 1 ? 0 : activeSlide + 1
     });
@@ -122,7 +117,6 @@ const SliderContainer: FunctionComponent<{ slides: Slides }> = props => {
   const prevSlide = () =>
     setState({
       ...state,
-      inTransition: true,
       translate: 0,
       activeSlide: activeSlide === 0 ? slides.length - 1 : activeSlide - 1
     });
@@ -134,15 +128,16 @@ const SliderContainer: FunctionComponent<{ slides: Slides }> = props => {
     setState({
       ...state,
       translate: newTranslate,
-      inTransition: true,
       activeSlide: toSlide,
     });
   }
 
-  // PLEASE HATE ME, I allow you to do so due to the typing
+  // PLEASE HATE ME, I allow you to do so due to the typing here
   const displaySlides = (): any => _slides.map((_slide: SlideConfig) => (
     <Slide width={getWindowWidth()} key={_slide.hash} slide={_slide} />
   ));
+
+  console.log(_slides);
 
   return (
     <div className="slider-container">
@@ -151,7 +146,6 @@ const SliderContainer: FunctionComponent<{ slides: Slides }> = props => {
         id="slider-content"
         translate={translate}
         transition={transition}
-        isTransition={inTransition}
         width={getWindowWidth() * _slides.length}
       >
         {displaySlides()}

@@ -18,15 +18,8 @@ start: ## start development
 	make install
 	$(PKG) start
 
-deploy: ## build development
-	$(PKG) build
-
-eject: ## eject development in one file
-	$(PKG) eject
-
 i: install
 dev: start
-build: deploy
 
 test: test-stuff
 test-stuff: ## test stuff

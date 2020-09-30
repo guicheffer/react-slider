@@ -7,7 +7,6 @@ interface SliderContentProps {
   id: string;
   translate: SlideState["translate"];
   transition: SlideState["transition"];
-  isTransition: SlideState["inTransition"];
   width: number;
   children?: ReactChild;
 }
