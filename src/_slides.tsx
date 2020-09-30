@@ -1,13 +1,82 @@
-// TODO: Fix it
-export type SlideConfig = string;
+import React, { ReactElement } from "react";
+import { css } from "@emotion/core";
+
+export type htmlContent = 'html';
+export type imageContent = 'image';
+
+interface BaseSlideConfig {
+  hash: string;
+  content: htmlContent | imageContent;
+};
+
+interface ImageSlideConfig extends BaseSlideConfig {
+  html?: ReactElement;
+  source: string;
+}
+
+interface HTMLSlideConfig extends BaseSlideConfig {
+  html: ReactElement;
+  source?: string;
+}
+
+export type SlideConfig = ImageSlideConfig | HTMLSlideConfig;
 
 export type Slides = SlideConfig[];
 
 const slides = [
-  'https://images.unsplash.com/photo-1449034446853-66c86144b0ad?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2100&q=80',
-  'https://images.unsplash.com/photo-1470341223622-1019832be824?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2288&q=80',
-  'https://images.unsplash.com/photo-1448630360428-65456885c650?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2094&q=80',
-  'https://images.unsplash.com/photo-1534161308652-fdfcf10f62c4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2174&q=80',
+  {
+    hash: 'd8e30447a3aafc17c9b',
+    content: 'image',
+    source: 'https://loremflickr.com/900/600',
+  },
+  {
+    hash: 'd8e3044se46bc17c9b',
+    content: 'image',
+    source: 'https://loremflickr.com/900/601',
+  },
+  {
+    hash: 'd8e3awasd45544wa59b',
+    content: 'html',
+    html: (<section css={css`
+      color: red;
+      height: 100%;
+      position: relative;
+      text-align: center;
+      width: 100%;
+    `}><span css={css`
+      display: block;
+      font-weight: 700;
+      left: 50%;
+      position: absolute;
+      top: 50%;
+      transform: translateX(-50%);
+    `}> hello world, i am a react component! and the next slide is your website ❤️ </span></section>),
+  },
+  {
+    hash: 'd8e3aw234454wa59b',
+    content: 'html',
+    html: (<iframe src="https://livingpackets.com/" css={css`height: 100%; width: 100%; `}/>),
+  },
+  {
+    hash: 'd8e3sdgh5e6fc17c9b',
+    content: 'image',
+    source: 'https://loremflickr.com/900/602',
+  },
+  {
+    hash: 'd8e3044rs6dudfyh7c9b',
+    content: 'image',
+    source: 'https://loremflickr.com/900/603',
+  },
+  {
+    hash: 'd8e3awa35a45454wa59b',
+    content: 'html',
+    html: (<section css={css`
+      color: blue;
+      font-weight: 700;
+      margin-top: 100px;
+      text-align: center;
+    `}>hey, i am another weird and ugly component up here!</section>),
+  },
 ] as Slides;
 
 export default slides;

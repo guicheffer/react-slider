@@ -10,7 +10,7 @@ import SliderContent from '../SliderContent/SliderContent';
 import "./SliderContainer.scss";
 
 enum DEFAULTS {
-  TRANSITION_TIME = 0.45
+  TRANSITION_TIME = 0.2,
 };
 
 export interface SlideState {
@@ -59,7 +59,7 @@ const SliderContainer: FunctionComponent<{ slides: Slides }> = props => {
   const resizeRef = useRef() as { current: Function };
 
   useEffect(() => {
-    transitionRef.current = smoothTransition;
+    transitionRef.current = shiftTransition;
     resizeRef.current = handleResize;
   });
 
@@ -85,13 +85,13 @@ const SliderContainer: FunctionComponent<{ slides: Slides }> = props => {
 
   useEffect(() => {
     if (transition === 0) setState({ ...state, transition: DEFAULTS.TRANSITION_TIME });
-  }, [state, transition])
+  }, [state, transition]);
 
   const handleResize = () => {
     setState({ ...state, translate: getWindowWidth(), transition: 0 });
   }
 
-  const smoothTransition = () => {
+  const shiftTransition = () => {
     let _slides = [];
 
     if (activeSlide === slides.length - 1) {
@@ -127,13 +127,26 @@ const SliderContainer: FunctionComponent<{ slides: Slides }> = props => {
       activeSlide: activeSlide === 0 ? slides.length - 1 : activeSlide - 1
     });
 
+  const handleSelect = ({ target }: { target: HTMLElement }) => {
+    const toSlide = parseInt(target.dataset.activeSlide as string) as number;
+    const newTranslate = activeSlide > toSlide ? 0 : translate * (toSlide - activeSlide) + getWindowWidth();
+
+    setState({
+      ...state,
+      translate: newTranslate,
+      inTransition: true,
+      activeSlide: toSlide,
+    });
+  }
+
   // PLEASE HATE ME, I allow you to do so due to the typing
-  const displaySlides = (): any => _slides.map((_slide: string, i: number) => (
-    <Slide width={getWindowWidth()} key={_slide + i} content={_slide} />
+  const displaySlides = (): any => _slides.map((_slide: SlideConfig) => (
+    <Slide width={getWindowWidth()} key={_slide.hash} slide={_slide} />
   ));
 
   return (
     <div className="slider-container">
+      {/* Our Slider Content */}
       <SliderContent
         translate={translate}
         transition={transition}
@@ -143,10 +156,12 @@ const SliderContainer: FunctionComponent<{ slides: Slides }> = props => {
         {displaySlides()}
       </SliderContent>
 
+      {/* Arrows */}
       <Arrow direction="left" handleClick={prevSlide} />
       <Arrow direction="right" handleClick={nextSlide} />
 
-      <Navigation slides={slides} activeSlide={activeSlide} />
+      {/* Bottom Navigation */}
+      <Navigation slides={slides} activeSlide={activeSlide} handleSelect={handleSelect} />
     </div>
   )
 }

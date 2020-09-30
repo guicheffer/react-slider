@@ -4,23 +4,31 @@ import { css } from '@emotion/core';
 import { Slides } from '../../_slides';
 
 interface NavigationProps {
+  handleSelect: any;
   slides: Slides;
   activeSlide: number;
 }
 
-const NavigationDot = ({ active }: { active: Boolean }) => (
-  <span
+const NavigationDot = ({ active, activeSlide, handleSelect }: {
+  active: Boolean,
+  activeSlide: NavigationProps["activeSlide"],
+  handleSelect: NavigationProps["handleSelect"],
+}) => (
+  <button
+    data-active-slide={activeSlide}
+    onClick={!active ? handleSelect : () => {}}
     css={css`
       padding: 10px;
       margin-right: 5px;
       cursor: pointer;
       border-radius: 50%;
+      outline: none;
       background: ${active ? 'black' : 'white'};
     `}
   />
 )
 
-const Navigation = ({ activeSlide, slides }: NavigationProps) => (
+const Navigation = ({ activeSlide, handleSelect, slides }: NavigationProps) => (
   <div
     css={css`
       position: absolute;
@@ -32,7 +40,7 @@ const Navigation = ({ activeSlide, slides }: NavigationProps) => (
     `}
   >
     {slides.map((slide, i) => (
-      <NavigationDot key={slide} active={activeSlide === i} />
+      <NavigationDot key={slide.hash} active={activeSlide === i} activeSlide={i} handleSelect={handleSelect} />
     ))}
   </div>
 )

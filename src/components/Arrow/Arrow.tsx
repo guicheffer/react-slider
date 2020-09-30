@@ -2,7 +2,7 @@ import React from 'react';
 import { css } from '@emotion/core';
 
 interface ArrowProps {
-  direction: "left" | "right";
+  direction: 'left' | 'right';
 
   // TODO: Fix handle click
   handleClick: any;
@@ -16,6 +16,7 @@ const Arrow = ({ direction, handleClick }: ArrowProps) => (
       align-items: center;
       background: white;
       border-radius: 50%;
+      border: 1px solid #748da8;
       cursor: pointer;
       display: flex;
       height: 50px;
@@ -32,7 +33,7 @@ const Arrow = ({ direction, handleClick }: ArrowProps) => (
       }
     `}
   >
-    {direction === 'right' ? "➡️" : "⬅️"}
+    {direction === 'right' ? '➡️' : '⬅️'}
   </div>
 )
 
